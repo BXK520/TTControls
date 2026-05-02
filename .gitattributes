@@ -1,0 +1,4 @@
+# gitattributes 格式化
+*.ts=auto
+*.js=auto
+*.json=auto
