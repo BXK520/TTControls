@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      lit:
-        specifier: '>=3.0.0'
-        version: 3.3.2
       transform-info-panel:
         specifier: ^0.1.0
         version: 0.1.1(lit@3.3.2)(three@0.184.0)

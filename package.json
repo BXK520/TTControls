@@ -13,7 +13,10 @@
   },
   "type": "module",
   "files": [
-    "dist"
+    "dist",
+    "package.json",
+    "README.md",
+    "src"
   ],
   "scripts": {
     "build": "vite build && tsc",
@@ -34,12 +37,22 @@
     "transform-info-panel": "^0.1.0"
   },
   "peerDependencies": {
-    "lit": ">=3.0.0",
     "three": ">=0.170.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BXK520/TTControls.git"
+  },
+  "bugs": {
+    "url": "https://github.com/BXK520/TTControls/issues"
   },
   "keywords": [
     "three.js",
-    "webgl"
+    "webgl",
+    "controls",
+    "ttcontrols",
+    "transform-info-panel",
+    "transform"
   ],
   "license": "MIT"
 }
