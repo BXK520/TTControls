@@ -31,9 +31,7 @@
     "vite-plugin-dts": "^4.5.4",
     "vite-plugin-static-copy": "^4.0.1",
     "@types/three": "^0.184.0",
-    "three": "^0.184.0"
-  },
-  "dependencies": {
+    "three": "^0.184.0",
     "transform-info-panel": "^0.1.0"
   },
   "peerDependencies": {
