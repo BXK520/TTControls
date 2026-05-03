@@ -7,10 +7,10 @@
 
 ```
   ╔══════════════════════════════════════════════════════════╗
-  ║   ✦   TTControls  ·  下一代 Three.js 变换操控器  ✦     ║
-  ║   ✦  TTControls  ·  A Next-Gen Transform Gizmo   ✦     ║
-  ║     掌控你的物体，每次一个轴。                              ║
-  ║     Take Control of Your Objects, One Axis at a Time.   ║
+  ║   ✦  TTControls  ·  下一代 Three.js 变换操控器  ✦          ║
+  ║   ✦  TTControls  ·  A Next-Gen Transform Gizmo   ✦      ║
+  ║     掌控你的物体，每次一个轴。                               ║
+  ║     Take Control of Your Objects, One Axis at a Time.    ║
   ╚══════════════════════════════════════════════════════════╝
 ```
 
@@ -53,7 +53,7 @@ Written in pure **TypeScript**, with complete type definitions and a rich event 
     <td>📏</td>
     <td><b>吸附功能</b></td>
     <td><b>Snap Controls</b></td>
-    <td>平移吸附 / 旋转吸附 / 缩放吸附，精度自由设定</td>
+    <td>平移吸附 / 旋转吸附 / 缩放吸附+灵敏度，精度自由设定</td>
   </tr>
   <tr>
     <td>🎯</td>
@@ -81,8 +81,8 @@ Written in pure **TypeScript**, with complete type definitions and a rich event 
   </tr>
   <tr>
     <td>📡</td>
-    <td><b>20+ 事件系统</b></td>
-    <td><b>20+ Events</b></td>
+    <td><b>22+ 事件系统</b></td>
+    <td><b>22+ Events</b></td>
     <td>超细粒度状态变更通知</td>
   </tr>
   <tr>
@@ -121,10 +121,9 @@ yarn add ttcontrols
 | 依赖 / Dependency | 版本 / Version |
 |-------------------|----------------|
 | `three` | ≥ 0.170.0 |
-| `lit` | ≥ 3.0.0 |
 
-> ⚠️ 请确保你的项目中已安装 `three` 和 `lit`。
-> ⚠️ Make sure `three` and `lit` are already installed in your project.
+> ⚠️ 请确保你的项目中已安装 `three`
+> ⚠️ Make sure `three`  are already installed in your project.
 
 ---
 
@@ -252,6 +251,17 @@ controls.rotationSnap = Math.PI / 12  // 每次旋转 15° / snap to 15° increm
 // 缩放吸附
 // Scale snap
 controls.scaleSnap = 0.1   // 以 0.1 为单位缩放 / snap to 0.1 increments
+
+// 缩放灵敏度（控制拖拽时的缩放速度，默认 0.2）
+// Scale sensitivity (control drag scale speed, default 0.2)
+controls.scaleSensitivity = 1     // 正常速度 / normal speed
+controls.scaleSensitivity = 0.1   // 10% 速度，精细调节 / 10% speed, fine-tune
+controls.scaleSensitivity = 0.01  // 1% 速度，极细微调 / 1% speed, micro-adjust
+
+// 灵敏度 + 吸附组合使用，实现缓慢精确的缩放
+// Combine sensitivity + snap for slow, precise scaling
+controls.scaleSensitivity = 0.1
+controls.scaleSnap = 0.05
 ```
 
 ---
@@ -348,8 +358,8 @@ scene.add(helper)
 ## 📡 事件系统
 ## 📡 Events
 
-TTControls 提供 **20+** 种细粒度事件，让你能精确感知每次状态变化。
-TTControls exposes **20+** fine-grained event types, giving you full visibility into every state change.
+TTControls 提供 **22+** 种细粒度事件，让你能精确感知每次状态变化。
+TTControls exposes **22+** fine-grained event types, giving you full visibility into every state change.
 
 | 事件名 / Event | 触发时机 / Trigger | Payload |
 |--------|----------|---------|
@@ -364,6 +374,7 @@ TTControls exposes **20+** fine-grained event types, giving you full visibility 
 | `translationSnap-changed` | 平移吸附变化 / Translation snap changed | `{ value: number \| null }` |
 | `rotationSnap-changed` | 旋转吸附变化 / Rotation snap changed | `{ value: number \| null }` |
 | `scaleSnap-changed` | 缩放吸附变化 / Scale snap changed | `{ value: number \| null }` |
+| `scaleSensitivity-changed` | 缩放灵敏度变化 / Scale sensitivity changed | `{ value: number }` |
 | `size-changed` | 手柄尺寸变化 / Handle size changed | `{ value: number }` |
 | `enabled-changed` | 启用/禁用 / Enabled/disabled | `{ value: boolean }` |
 | `showX/Y/Z-changed` | 轴可见性变化 / Axis visibility changed | `{ value: boolean }` |
@@ -449,7 +460,7 @@ TTControls (main class, extends THREE.Controls)
   │    │    ├── picker['scale']
   │    │    └── picker['all']
   │    └── TransformControlsPlane（无限大操作平面 / infinite operating plane）
-  └── 20+ 属性定义器 / 20+ property definers (defineProperty)
+  └── 22+ 属性定义器 / 22+ property definers (defineProperty)
 ```
 
 ### 层级说明
@@ -528,9 +539,10 @@ pnpm build
 - [x] All 三合一模式 / All 3-in-1 mode
 - [x] World / Local 双空间 / World & Local dual space
 - [x] 吸附系统 / Snap system
+- [x] 缩放灵敏度控制 / Scale sensitivity control
 - [x] 范围限制（Min/Max）/ Range limits
 - [x] 正交相机兼容 / Orthographic camera support
-- [x] 20+ 细粒度事件 / 20+ fine-grained events
+- [x] 22+ 细粒度事件 / 22+ fine-grained events
 - [x] 自定义配色 / Custom colors
 - [x] 配套 TransformInfoPanel / Companion TransformInfoPanel
 - [ ] 撤销/重做历史栈 / Undo & redo history stack
