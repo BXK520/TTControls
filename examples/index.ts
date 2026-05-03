@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import { TTControls } from 'ttcontrols'
+import { TTControls } from '../src/TTControls.js'
 import { TransformInfoPanel } from 'transform-info-panel'
 
 const scene = new THREE.Scene()
@@ -43,6 +43,8 @@ orbitControls.dampingFactor = 0.05
 const controls = new TTControls(camera, renderer.domElement)
 controls.attach(mesh)
 scene.add(controls.getHelper())
+
+controls.setScaleSensitivity(0.1)
 
 const panel = new TransformInfoPanel(controls,{
   theme: "light"

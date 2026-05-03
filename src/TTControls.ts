@@ -39,6 +39,7 @@ export interface TransformControlsEventMap {
   "translationSnap-changed": { value: unknown }
   "rotationSnap-changed": { value: unknown }
   "scaleSnap-changed": { value: unknown }
+  "scaleSensitivity-changed": { value: unknown }
   "space-changed": { value: unknown }
   "size-changed": { value: unknown }
   "dragging-changed": { value: unknown }
@@ -113,6 +114,7 @@ class TTControls extends Controls<TransformControlsEventMap> {
   translationSnap!: number | null
   rotationSnap!: number | null
   scaleSnap!: number | null
+  scaleSensitivity!: number
   space!: "world" | "local"
   size!: number
   dragging!: boolean
@@ -185,6 +187,7 @@ class TTControls extends Controls<TransformControlsEventMap> {
     defineProperty('translationSnap', null)
     defineProperty('rotationSnap', null)
     defineProperty('scaleSnap', null)
+    defineProperty('scaleSensitivity', 0.2)
     defineProperty('space', 'world')
     defineProperty('size', 1)
     defineProperty('dragging', false)
@@ -438,6 +441,12 @@ class TTControls extends Controls<TransformControlsEventMap> {
         if (axis.search('Z') === -1) _tempVector2.z = 1
       }
 
+      if (this.scaleSensitivity !== 1) {
+        _tempVector2.x = 1 + (_tempVector2.x - 1) * this.scaleSensitivity
+        _tempVector2.y = 1 + (_tempVector2.y - 1) * this.scaleSensitivity
+        _tempVector2.z = 1 + (_tempVector2.z - 1) * this.scaleSensitivity
+      }
+
       object.scale.copy(this._scaleStart).multiply(_tempVector2)
 
       if (this.scaleSnap) {
@@ -530,6 +539,7 @@ class TTControls extends Controls<TransformControlsEventMap> {
   setTranslationSnap(v: number) { this.translationSnap = v }
   setRotationSnap(v: number) { this.rotationSnap = v }
   setScaleSnap(v: number) { this.scaleSnap = v }
+  setScaleSensitivity(v: number) { this.scaleSensitivity = v }
   setSize(v: number) { this.size = v }
   setSpace(space: 'world' | 'local') { this.space = space }
 
