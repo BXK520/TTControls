@@ -319,7 +319,7 @@ class TTControls extends Controls<TransformControlsEventMap> {
         this.axis = rawName
       }
 
-      console.log(this.axis, this.mode, this._allSubMode, this._gizmo.gizmo[this.mode])
+      // console.log(this.axis, this.mode, this._allSubMode, this._gizmo.gizmo[this.mode])
       this.showX = this.axis.search('X') !== -1
       this.showY = this.axis.search('Y') !== -1
       this.showZ = this.axis.search('Z') !== -1
